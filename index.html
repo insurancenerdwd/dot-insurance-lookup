@@ -200,86 +200,6 @@
       margin-bottom: 8px;
     }
     .docket-label strong { color: #374151; }
-
-    /* Risk / crash section */
-    .risk-summary {
-      display: flex;
-      align-items: flex-start;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-    .stat-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-      gap: 12px;
-      flex: 1;
-      min-width: 0;
-    }
-    .stat-box {
-      background: #f9fafb;
-      border-radius: 8px;
-      padding: 12px 14px;
-      text-align: center;
-    }
-    .stat-box .stat-val {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #0f3460;
-      line-height: 1;
-    }
-    .stat-box .stat-val.danger { color: #dc2626; }
-    .stat-box .stat-val.warn   { color: #d97706; }
-    .stat-box .stat-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: #6b7280;
-      margin-top: 5px;
-    }
-    .risk-tier-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
-    }
-    .risk-tier-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: #9ca3af;
-    }
-    .risk-tier {
-      padding: 8px 20px;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      white-space: nowrap;
-    }
-    .risk-low      { background: #dcfce7; color: #15803d; }
-    .risk-medium   { background: #fef9c3; color: #854d0e; }
-    .risk-high     { background: #ffedd5; color: #c2410c; }
-    .risk-critical { background: #fee2e2; color: #991b1b; }
-    .risk-rate {
-      font-size: 0.75rem;
-      color: #6b7280;
-      text-align: center;
-    }
-    .section-subtitle {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #9ca3af;
-      margin: 18px 0 10px;
-    }
-    .danger-text { color: #dc2626; font-weight: 700; }
-    .cap-note { font-size: 0.78rem; color: #9ca3af; text-align: center; margin-top: 8px; }
   </style>
 </head>
 <body>
@@ -307,9 +227,6 @@
   const CENSUS_URL   = 'https://data.transportation.gov/resource/az4n-8mr2.json';
   const INSUR_URL    = 'https://data.transportation.gov/resource/ypjt-5ydn.json';
   const INSHIST_URL  = 'https://data.transportation.gov/resource/6sqe-dvqs.json';
-  const CRASH_URL    = 'https://data.transportation.gov/resource/aayw-vxb3.json';
-
-  const RISK_WINDOW_YEARS = 3;
 
   // ins_type_code is a numeric string from the FMCSA dataset
   const INS_TYPE_LABELS = {
@@ -360,122 +277,6 @@
     if (c === 'A') return '<span class="badge badge-active">Active</span>';
     if (c === 'I') return '<span class="badge badge-inactive">Inactive</span>';
     return `<span class="badge badge-other">${code}</span>`;
-  }
-
-  // report_date is stored as YYYYMMDD text
-  function parseCrashDate(s) {
-    if (!s || s.length < 8) return null;
-    const d = new Date(`${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`);
-    return isNaN(d) ? null : d;
-  }
-
-  function fmtCrashDate(s) {
-    const d = parseCrashDate(s);
-    if (!d) return s || '—';
-    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-  }
-
-  function calcRiskTier(recentCrashes) {
-    const hasFatal  = recentCrashes.some(r => parseInt(r.fatalities || 0) > 0);
-    const hasHazmat = recentCrashes.some(r => r.hazmat_released === 'Y');
-    const fedRec    = recentCrashes.filter(r => r.federal_recordable === 'Y').length;
-    if (hasFatal || hasHazmat) return 'critical';
-    if (fedRec >= 3) return 'high';
-    if (fedRec >= 1) return 'medium';
-    return 'low';
-  }
-
-  function renderCrash(crashes, powerUnits) {
-    const cutoff = new Date();
-    cutoff.setFullYear(cutoff.getFullYear() - RISK_WINDOW_YEARS);
-
-    const recent = crashes.filter(r => {
-      const d = parseCrashDate(r.report_date);
-      return d && d >= cutoff;
-    });
-
-    const totalFatalities = crashes.reduce((s, r) => s + (parseInt(r.fatalities) || 0), 0);
-    const totalInjuries   = crashes.reduce((s, r) => s + (parseInt(r.injuries)   || 0), 0);
-    const totalFedRec     = crashes.filter(r => r.federal_recordable === 'Y').length;
-    const recentFedRec    = recent.filter(r => r.federal_recordable === 'Y').length;
-    const recentFatal     = recent.reduce((s, r) => s + (parseInt(r.fatalities) || 0), 0);
-
-    const tier = calcRiskTier(recent);
-    const tierLabels = { low: 'Low Risk', medium: 'Medium Risk', high: 'High Risk', critical: 'Critical Risk' };
-
-    const pu = parseInt(powerUnits) || 0;
-    const rateHtml = pu > 0
-      ? `<div class="risk-rate">${recentFedRec} recordable / ${pu} units<br>(${((recentFedRec / pu) * 10).toFixed(2)} per 10 units)</div>`
-      : '';
-
-    const crashRows = recent.slice(0, 30).map(r => {
-      const fatalNum = parseInt(r.fatalities) || 0;
-      const injNum   = parseInt(r.injuries)   || 0;
-      return `
-        <tr>
-          <td>${fmtCrashDate(r.report_date)}</td>
-          <td>${r.report_state || '—'}</td>
-          <td>${r.city || '—'}</td>
-          <td class="${fatalNum > 0 ? 'danger-text' : ''}">${fatalNum}</td>
-          <td>${injNum}</td>
-          <td>${r.tow_away === 'Y' ? '✓' : '—'}</td>
-          <td>${r.federal_recordable === 'Y' ? '<span class="badge badge-inactive" style="font-size:0.7rem">Yes</span>' : '—'}</td>
-          <td>${r.hazmat_released === 'Y' ? '<span class="badge badge-inactive" style="font-size:0.7rem">HM</span>' : '—'}</td>
-        </tr>`;
-    }).join('');
-
-    const tableHtml = recent.length > 0
-      ? `<div class="section-subtitle">${RISK_WINDOW_YEARS}-Year Crash Detail (${recent.length} incident${recent.length !== 1 ? 's' : ''})</div>
-         <div class="ins-table-wrap"><table>
-           <thead><tr>
-             <th>Date</th><th>State</th><th>City</th>
-             <th>Fatalities</th><th>Injuries</th><th>Tow-Away</th>
-             <th>Fed. Recordable</th><th>Hazmat</th>
-           </tr></thead>
-           <tbody>${crashRows}</tbody>
-         </table></div>
-         ${recent.length > 30 ? `<div class="cap-note">Showing 30 of ${recent.length} crashes in window</div>` : ''}`
-      : `<div class="no-ins">No crashes on record in the last ${RISK_WINDOW_YEARS} years.</div>`;
-
-    const capNote = crashes.length >= 500
-      ? `<div class="cap-note" style="margin-bottom:12px">Showing most recent 500 records — carrier may have additional history</div>`
-      : '';
-
-    return `
-      <div class="card">
-        <div class="card-title">Safety &amp; Crash History</div>
-        ${capNote}
-        <div class="risk-summary">
-          <div class="stat-row">
-            <div class="stat-box">
-              <div class="stat-val">${crashes.length}</div>
-              <div class="stat-label">Crashes on File</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-val ${totalFatalities > 0 ? 'danger' : ''}">${totalFatalities}</div>
-              <div class="stat-label">Total Fatalities</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-val ${totalInjuries > 0 ? 'warn' : ''}">${totalInjuries}</div>
-              <div class="stat-label">Total Injuries</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-val">${totalFedRec}</div>
-              <div class="stat-label">Fed. Recordable</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-val ${recentFatal > 0 ? 'danger' : ''}">${recentFedRec}</div>
-              <div class="stat-label">${RISK_WINDOW_YEARS}-yr Recordable</div>
-            </div>
-          </div>
-          <div class="risk-tier-wrap">
-            <div class="risk-tier-label">${RISK_WINDOW_YEARS}-yr Assessment</div>
-            <div class="risk-tier risk-${tier}">${tierLabels[tier]}</div>
-            ${rateHtml}
-          </div>
-        </div>
-        ${tableHtml}
-      </div>`;
   }
 
   function buildDockets(row) {
@@ -655,13 +456,6 @@
       const company = companies[0];
       const dockets = buildDockets(company);
 
-      // Start crash fetch immediately — uses dot_number, no dockets needed
-      const crashPromise = apiFetch(CRASH_URL, {
-        dot_number: dot,
-        '$limit': 500,
-        '$order': 'report_date DESC',
-      }).catch(() => []);
-
       let activeRecords = [];
       let historyRecords = [];
 
@@ -726,13 +520,7 @@
         historyRecords = historyRecords.filter(r => !activePolicies.has(r.policy_no));
       }
 
-      const crashRecords = await crashPromise;
-
-      setResults(
-        renderCompany(company) +
-        renderCrash(crashRecords, company.power_units) +
-        renderInsurance(dockets, activeRecords, historyRecords)
-      );
+      setResults(renderCompany(company) + renderInsurance(dockets, activeRecords, historyRecords));
 
     } catch (err) {
       setResults(`<div class="status error">Error: ${err.message}</div>`);
