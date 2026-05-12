@@ -15,228 +15,220 @@
       padding: 40px 20px;
     }
 
-    .container { max-width: 900px; margin: 0 auto; }
+    .container { max-width: 960px; margin: 0 auto; }
 
-    header {
-      margin-bottom: 32px;
+    header { margin-bottom: 28px; }
+    header h1 { font-size: 1.6rem; font-weight: 700; color: #0f3460; }
+    header p  { margin-top: 4px; font-size: 0.9rem; color: #6b7280; }
+
+    /* Tabs */
+    .search-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 0;
+      border-bottom: 2px solid #e5e7eb;
     }
-    header h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #0f3460;
-    }
-    header p {
-      margin-top: 4px;
+    .tab-btn {
+      padding: 10px 20px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
       font-size: 0.9rem;
+      font-weight: 600;
       color: #6b7280;
+      cursor: pointer;
+      transition: all 0.15s;
     }
+    .tab-btn:hover { color: #0f3460; }
+    .tab-btn.active { color: #0f3460; border-bottom-color: #0f3460; }
 
-    .search-bar {
+    /* Search panels */
+    .search-panel {
+      background: #fff;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .search-row {
       display: flex;
       gap: 10px;
-      margin-bottom: 32px;
+      align-items: center;
     }
-    .search-bar input {
+    .search-row input {
       flex: 1;
-      padding: 12px 16px;
-      font-size: 1rem;
+      padding: 11px 14px;
+      font-size: 0.95rem;
       border: 2px solid #d1d5db;
       border-radius: 8px;
       outline: none;
       transition: border-color 0.2s;
-      max-width: 320px;
+      max-width: 420px;
     }
-    .search-bar input:focus { border-color: #0f3460; }
-    .search-bar button {
-      padding: 12px 24px;
+    .search-row input:focus { border-color: #0f3460; }
+    .search-row button {
+      padding: 11px 22px;
       background: #0f3460;
       color: #fff;
       border: none;
       border-radius: 8px;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
       transition: background 0.2s;
+      white-space: nowrap;
     }
-    .search-bar button:hover { background: #16213e; }
-    .search-bar button:disabled { background: #9ca3af; cursor: not-allowed; }
+    .search-row button:hover { background: #16213e; }
+    .search-row button:disabled { background: #9ca3af; cursor: not-allowed; }
+    .search-hint { margin-top: 8px; font-size: 0.8rem; color: #9ca3af; }
 
-    .status {
-      text-align: center;
-      padding: 48px;
-      color: #6b7280;
-      font-size: 0.95rem;
-    }
+    /* Progress bar */
+    .progress-wrap { margin-bottom: 4px; }
+    .progress-bar-bg { height: 5px; background: #e5e7eb; border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
+    .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #0f3460, #3b82f6); border-radius: 4px; transition: width 0.4s ease; width: 0%; }
+    .progress-label { font-size: 0.85rem; color: #6b7280; }
+
+    .status { text-align: center; padding: 48px; color: #6b7280; font-size: 0.95rem; }
     .status.error { color: #dc2626; }
 
     .spinner {
-      display: inline-block;
-      width: 20px; height: 20px;
-      border: 3px solid #d1d5db;
-      border-top-color: #0f3460;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      vertical-align: middle;
-      margin-right: 8px;
+      display: inline-block; width: 18px; height: 18px;
+      border: 2px solid #d1d5db; border-top-color: #0f3460;
+      border-radius: 50%; animation: spin 0.7s linear infinite;
+      vertical-align: middle; margin-right: 6px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
     /* Cards */
     .card {
-      background: #fff;
-      border-radius: 12px;
+      background: #fff; border-radius: 12px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-      padding: 24px;
-      margin-bottom: 20px;
+      padding: 24px; margin-bottom: 20px;
     }
     .card-title {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #6b7280;
-      margin-bottom: 16px;
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #6b7280; margin-bottom: 16px;
     }
 
     /* Company info grid */
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
-    }
-    .info-item label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 3px;
-    }
-    .info-item span {
-      font-size: 0.95rem;
-      color: #111827;
-    }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+    .info-item label { display: block; font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+    .info-item span { font-size: 0.95rem; color: #111827; }
     .info-item span.empty { color: #9ca3af; font-style: italic; }
 
-    /* Status badge */
-    .badge {
-      display: inline-block;
-      padding: 2px 10px;
-      border-radius: 99px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-    .badge-active { background: #dcfce7; color: #15803d; }
+    /* Badges */
+    .badge { display: inline-block; padding: 2px 10px; border-radius: 99px; font-size: 0.75rem; font-weight: 600; }
+    .badge-active   { background: #dcfce7; color: #15803d; }
     .badge-inactive { background: #fee2e2; color: #b91c1c; }
-    .badge-other { background: #f3f4f6; color: #4b5563; }
+    .badge-other    { background: #f3f4f6; color: #4b5563; }
 
     /* Insurance table */
     .ins-table-wrap { overflow-x: auto; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.875rem;
-    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
     thead th {
-      text-align: left;
-      padding: 8px 12px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: #6b7280;
-      border-bottom: 2px solid #e5e7eb;
-      white-space: nowrap;
+      text-align: left; padding: 8px 12px;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; color: #6b7280;
+      border-bottom: 2px solid #e5e7eb; white-space: nowrap;
     }
     tbody tr { border-bottom: 1px solid #f3f4f6; }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: #f9fafb; }
-    tbody td { padding: 10px 12px; vertical-align: top; }
+    tbody td { padding: 10px 12px; vertical-align: middle; }
     tbody td.mono { font-family: ui-monospace, monospace; font-size: 0.82rem; }
 
-    .ins-type-tag {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      background: #eff6ff;
-      color: #1d4ed8;
-    }
-
-    .row-active td { background: #f0fdf4; }
+    .row-active td   { background: #f0fdf4; }
     .row-replaced td { color: #6b7280; }
 
-    .status-active {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 99px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      background: #dcfce7;
-      color: #15803d;
-    }
-    .status-replaced {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 99px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      background: #f3f4f6;
-      color: #6b7280;
-    }
+    .status-active   { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 0.72rem; font-weight: 700; background: #dcfce7; color: #15803d; }
+    .status-replaced { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 0.72rem; font-weight: 600; background: #f3f4f6; color: #6b7280; }
 
-    .no-ins {
-      text-align: center;
-      padding: 24px;
-      color: #9ca3af;
-      font-size: 0.9rem;
-    }
-
-    .docket-label {
-      font-size: 0.8rem;
-      color: #6b7280;
-      margin-bottom: 8px;
-    }
+    .no-ins { text-align: center; padding: 24px; color: #9ca3af; font-size: 0.9rem; }
+    .docket-label { font-size: 0.8rem; color: #6b7280; margin-bottom: 8px; }
     .docket-label strong { color: #374151; }
+
+    /* Name search results */
+    .ns-summary { font-size: 0.875rem; color: #374151; margin-bottom: 16px; line-height: 1.6; }
+    .ns-summary .has-ins  { color: #15803d; font-weight: 700; }
+    .ns-summary .no-ins-c { color: #6b7280; }
+    .name-link { color: #0f3460; font-weight: 600; text-decoration: none; cursor: pointer; background: none; border: none; padding: 0; font-size: inherit; font-family: inherit; text-align: left; }
+    .name-link:hover { text-decoration: underline; }
+    .ins-yes { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 0.72rem; font-weight: 700; background: #dcfce7; color: #15803d; }
+    .ins-no  { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 0.72rem; font-weight: 600; background: #fee2e2; color: #b91c1c; }
+    .ins-na  { font-size: 0.78rem; color: #9ca3af; }
   </style>
 </head>
 <body>
 <div class="container">
+
   <header>
     <h1>DOT Insurance Lookup</h1>
-    <p>Enter a USDOT number to retrieve carrier information and active insurance policies from FMCSA.</p>
+    <p>Look up FMCSA insurance filings by DOT number, or search for all carriers matching a company name.</p>
   </header>
 
-  <div class="search-bar">
-    <input type="text" id="dotInput" placeholder="Enter DOT number (e.g. 3210270)"
-           inputmode="numeric" pattern="[0-9]*" />
-    <button id="searchBtn" onclick="runLookup()">Look Up</button>
+  <div class="search-tabs">
+    <button class="tab-btn active" id="tabDot"  onclick="setMode('dot')">By DOT Number</button>
+    <button class="tab-btn"        id="tabName" onclick="setMode('name')">By Company Name</button>
+  </div>
+
+  <div class="search-panel" id="panelDot">
+    <div class="search-row">
+      <input type="text" id="dotInput" placeholder="Enter DOT number (e.g. 3210270)"
+             inputmode="numeric" pattern="[0-9]*" />
+      <button id="dotBtn" onclick="runLookup()">Look Up</button>
+    </div>
+    <div class="search-hint">Returns carrier info and active insurance policies from FMCSA.</div>
+  </div>
+
+  <div class="search-panel" id="panelName" style="display:none">
+    <div class="search-row">
+      <input type="text" id="nameInput" placeholder="e.g. MASTEC, RUAN, J.B. HUNT" />
+      <button id="nameBtn" onclick="runNameSearch()">Search</button>
+    </div>
+    <div class="search-hint">Searches FMCSA carrier registry by legal name or DBA. Returns up to 200 matches and checks each for active insurance.</div>
+  </div>
+
+  <div id="progressWrap" style="display:none;margin-bottom:16px">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel"></div>
   </div>
 
   <div id="results">
-    <div class="status">Enter a DOT number above to begin.</div>
+    <div class="status">Enter a DOT number or company name above to begin.</div>
   </div>
 </div>
 
 <script>
-  // Optional: paste your Socrata app token here to avoid rate limits
   const APP_TOKEN = '';
 
-  const CENSUS_URL   = 'https://data.transportation.gov/resource/az4n-8mr2.json';
-  const INSUR_URL    = 'https://data.transportation.gov/resource/ypjt-5ydn.json';
-  const INSHIST_URL  = 'https://data.transportation.gov/resource/6sqe-dvqs.json';
+  const CENSUS_URL  = 'https://data.transportation.gov/resource/az4n-8mr2.json';
+  const INSUR_URL   = 'https://data.transportation.gov/resource/ypjt-5ydn.json';
+  const INSHIST_URL = 'https://data.transportation.gov/resource/6sqe-dvqs.json';
 
-  // ins_type_code is a numeric string from the FMCSA dataset
   const INS_TYPE_LABELS = {
-    '1': 'BIPD / Primary',
-    '2': 'Cargo',
-    '3': 'Bond',
-    '4': 'Public Liability',
-    '5': 'Excess / Umbrella',
-    '6': 'Household Goods',
+    '1': 'BIPD / Primary', '2': 'Cargo', '3': 'Bond',
+    '4': 'Public Liability', '5': 'Excess / Umbrella', '6': 'Household Goods',
   };
+
+  let _mode = 'dot';
+
+  function setMode(mode) {
+    _mode = mode;
+    document.getElementById('panelDot').style.display  = mode === 'dot'  ? '' : 'none';
+    document.getElementById('panelName').style.display = mode === 'name' ? '' : 'none';
+    document.getElementById('tabDot').classList.toggle('active',  mode === 'dot');
+    document.getElementById('tabName').classList.toggle('active', mode === 'name');
+    if (mode === 'dot')  document.getElementById('dotInput').focus();
+    if (mode === 'name') document.getElementById('nameInput').focus();
+  }
+
+  function setProgress(pct, msg) {
+    document.getElementById('progressWrap').style.display = 'block';
+    document.getElementById('progressFill').style.width   = pct + '%';
+    document.getElementById('progressLabel').innerHTML    = `<span class="spinner"></span>${msg}`;
+  }
+  function hideProgress() { document.getElementById('progressWrap').style.display = 'none'; }
 
   function qs(params) {
     const p = new URLSearchParams(params);
@@ -251,21 +243,19 @@
   }
 
   function fmt(val) {
-    if (!val || val.trim() === '') return '<span class="empty">—</span>';
-    return val;
+    if (!val || String(val).trim() === '') return '<span class="empty">—</span>';
+    return String(val);
   }
 
   function fmtMoney(val) {
-    if (!val || val.trim() === '') return '<span class="empty">—</span>';
+    if (!val || String(val).trim() === '') return '<span class="empty">—</span>';
     const n = parseFloat(val);
     if (isNaN(n)) return val;
-    // FMCSA stores amounts in thousands (e.g. "01000" = $1,000,000)
     return '$' + (n * 1000).toLocaleString('en-US');
   }
 
   function fmtDate(val) {
-    if (!val || val.trim() === '') return '<span class="empty">—</span>';
-    // Dates come as "YYYY-MM-DDT..." or "MM/DD/YYYY"
+    if (!val || String(val).trim() === '') return '<span class="empty">—</span>';
     const d = new Date(val);
     if (isNaN(d)) return val;
     return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
@@ -279,6 +269,10 @@
     return `<span class="badge badge-other">${code}</span>`;
   }
 
+  function esc(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
   function buildDockets(row) {
     const dockets = [];
     for (let i = 1; i <= 3; i++) {
@@ -289,84 +283,56 @@
     return dockets;
   }
 
-  function renderCompany(row) {
-    const name    = row.legal_name || '';
-    const dba     = row.dba_name   || '';
-    const street  = row.phy_street || '';
-    const city    = row.phy_city   || '';
-    const state   = row.phy_state  || '';
-    const zip     = row.phy_zip    || '';
-    const addr    = [street, city && state ? `${city}, ${state}` : city || state, zip]
-                      .filter(Boolean).join(' ');
+  // ── DOT lookup ────────────────────────────────────────────────────────────────
 
+  function renderCompany(row) {
+    const name  = row.legal_name || '';
+    const dba   = row.dba_name   || '';
+    const addr  = [row.phy_street, row.phy_city && row.phy_state
+                    ? `${row.phy_city}, ${row.phy_state}` : (row.phy_city || row.phy_state),
+                   row.phy_zip].filter(Boolean).join(' ');
     return `
       <div class="card">
         <div class="card-title">Carrier Information</div>
         <div class="info-grid">
-          <div class="info-item">
-            <label>DOT Number</label>
-            <span>${fmt(row.dot_number)}</span>
-          </div>
-          <div class="info-item">
-            <label>Legal Name</label>
-            <span>${fmt(name)}</span>
-          </div>
-          ${dba ? `<div class="info-item"><label>DBA</label><span>${dba}</span></div>` : ''}
-          <div class="info-item">
-            <label>Status</label>
-            <span>${statusBadge(row.status_code)}</span>
-          </div>
-          <div class="info-item">
-            <label>Physical Address</label>
-            <span>${fmt(addr)}</span>
-          </div>
-          <div class="info-item">
-            <label>Phone</label>
-            <span>${fmt(row.phone)}</span>
-          </div>
-          <div class="info-item">
-            <label>Entity Type</label>
-            <span>${fmt(row.business_org_desc || row.business_org_id)}</span>
-          </div>
-          <div class="info-item">
-            <label>Power Units</label>
-            <span>${fmt(row.power_units)}</span>
-          </div>
-          <div class="info-item">
-            <label>Drivers</label>
-            <span>${fmt(row.total_drivers)}</span>
-          </div>
+          <div class="info-item"><label>DOT Number</label><span>${fmt(row.dot_number)}</span></div>
+          <div class="info-item"><label>Legal Name</label><span>${fmt(name)}</span></div>
+          ${dba ? `<div class="info-item"><label>DBA</label><span>${esc(dba)}</span></div>` : ''}
+          <div class="info-item"><label>Status</label><span>${statusBadge(row.status_code)}</span></div>
+          <div class="info-item"><label>Physical Address</label><span>${fmt(addr)}</span></div>
+          <div class="info-item"><label>Phone</label><span>${fmt(row.phone)}</span></div>
+          <div class="info-item"><label>Entity Type</label><span>${fmt(row.business_org_desc || row.business_org_id)}</span></div>
+          <div class="info-item"><label>Power Units</label><span>${fmt(row.power_units)}</span></div>
+          <div class="info-item"><label>Drivers</label><span>${fmt(row.total_drivers)}</span></div>
         </div>
       </div>`;
   }
 
-  // Normalize active policy record (from ypjt-5ydn) into common shape
   function normalizeActive(r) {
     return {
-      form_code:      r.ins_form_code || '',
-      type_label:     INS_TYPE_LABELS[r.ins_type_code] || r.ins_type_code || '—',
-      insurer:        r.name_company || '',
-      policy_no:      r.policy_no || '',
-      cov_from:       fmtMoney(r.underl_lim_amount),
-      cov_to:         fmtMoney(r.max_cov_amount),
-      eff_from:       r.effective_date || '',
-      eff_to:         null,
-      status:         'active',
+      form_code:  r.ins_form_code || '',
+      type_label: INS_TYPE_LABELS[r.ins_type_code] || r.ins_type_code || '—',
+      insurer:    r.name_company || '',
+      policy_no:  r.policy_no || '',
+      cov_from:   fmtMoney(r.underl_lim_amount),
+      cov_to:     fmtMoney(r.max_cov_amount),
+      eff_from:   r.effective_date || '',
+      eff_to:     null,
+      status:     'active',
     };
   }
 
-  // Normalize historical/cancelled record (from 6sqe-dvqs) into common shape
   function normalizeHistory(r) {
     return {
-      form_code:      r.ins_form_code || '',
-      type_label:     r.mod_col_3 || '—',
-      insurer:        r.name_company || '',
-      policy_no:      r.policy_no || '',
-      cov_from:       fmtMoney(r.mod_col_4),
-      cov_to:         fmtMoney(r.mod_col_5),
-      eff_from:       r.effective_date || '',
-      eff_to:         r.cancl_effective_date || '',
-      status:         (r.cancl_method === 'TERM/REPL' || r.mod_col_1 === 'Replaced') ? 'replaced' : 'cancelled',
+      form_code:  r.ins_form_code || '',
+      type_label: r.mod_col_3 || '—',
+      insurer:    r.name_company || '',
+      policy_no:  r.policy_no || '',
+      cov_from:   fmtMoney(r.mod_col_4),
+      cov_to:     fmtMoney(r.mod_col_5),
+      eff_from:   r.effective_date || '',
+      eff_to:     r.cancl_effective_date || '',
+      status:     (r.cancl_method === 'TERM/REPL' || r.mod_col_1 === 'Replaced') ? 'replaced' : 'cancelled',
     };
   }
 
@@ -374,10 +340,10 @@
     const docketDisplay = dockets.join(', ');
 
     if (!dockets.length) {
-      const classdef = (company?.classdef || '').toUpperCase();
+      const classdef  = (company?.classdef || '').toUpperCase();
       const isPrivate = classdef.includes('PRIVATE');
       const msg = isPrivate
-        ? `Private carrier — no MC/FF docket on file. FMCSA insurance filings are only required for for-hire carriers. ${company.legal_name || 'This carrier'} operates as a <strong>${company.classdef}</strong> carrier and is not required to file insurance with FMCSA.`
+        ? `Private carrier — no MC/FF docket on file. FMCSA insurance filings are only required for for-hire carriers. ${esc(company.legal_name || 'This carrier')} operates as a <strong>${esc(company.classdef)}</strong> carrier and is not required to file insurance with FMCSA.`
         : 'No MC/FF docket on file. Insurance filings are only available for carriers registered with FMCSA operating authority (MC or FF number).';
       return `
         <div class="card">
@@ -393,9 +359,8 @@
     ].sort((a, b) => new Date(b.eff_from || 0) - new Date(a.eff_from || 0));
 
     const rows = normalized.map(r => {
-      const isActive  = r.status === 'active';
-      const rowClass  = isActive ? 'row-active' : 'row-replaced';
-      const statusHtml = isActive
+      const isActive    = r.status === 'active';
+      const statusHtml  = isActive
         ? '<span class="status-active">Active</span>'
         : r.status === 'replaced'
           ? '<span class="status-replaced">Replaced</span>'
@@ -403,9 +368,8 @@
       const effToHtml = isActive
         ? '<span style="color:#15803d;font-weight:600">Active</span>'
         : fmtDate(r.eff_to);
-
       return `
-        <tr class="${rowClass}">
+        <tr class="${isActive ? 'row-active' : 'row-replaced'}">
           <td>${r.form_code || '—'}</td>
           <td>${r.type_label}</td>
           <td>${fmt(r.insurer)}</td>
@@ -420,116 +384,83 @@
 
     const body = rows
       ? `<div class="ins-table-wrap"><table>
-           <thead>
-             <tr>
-               <th>Form</th>
-               <th>Type</th>
-               <th>Insurance Carrier</th>
-               <th>Policy / Surety</th>
-               <th>Coverage From</th>
-               <th>Coverage To</th>
-               <th>Eff. Date From</th>
-               <th>Eff. Date To</th>
-               <th>Status</th>
-             </tr>
-           </thead>
+           <thead><tr>
+             <th>Form</th><th>Type</th><th>Insurance Carrier</th><th>Policy / Surety</th>
+             <th>Coverage From</th><th>Coverage To</th><th>Eff. From</th><th>Eff. To</th><th>Status</th>
+           </tr></thead>
            <tbody>${rows}</tbody>
          </table></div>`
-      : `<div class="no-ins">No insurance records found for docket(s): ${docketDisplay}</div>`;
+      : `<div class="no-ins">No insurance records found for docket(s): ${esc(docketDisplay)}</div>`;
 
     return `
       <div class="card">
         <div class="card-title">Insurance Policies</div>
-        <div class="docket-label">Docket(s): <strong>${docketDisplay || '—'}</strong></div>
+        <div class="docket-label">Docket(s): <strong>${esc(docketDisplay) || '—'}</strong></div>
         ${body}
       </div>`;
   }
 
-  async function runLookup() {
-    const input = document.getElementById('dotInput');
-    const btn   = document.getElementById('searchBtn');
-    const dot   = input.value.trim().replace(/\D/g, '');
-
-    if (!dot) {
-      setResults('<div class="status error">Please enter a valid DOT number.</div>');
-      return;
+  async function fetchInsuranceForDocket(d) {
+    const m = String(d).toUpperCase().match(/^([A-Z]+)-?0*(\d+)$/);
+    const formats = m ? [m[1] + m[2].padStart(6,'0'), m[1] + m[2]] : [d];
+    for (const f of formats) {
+      const rows = await apiFetch(INSUR_URL, { prefix_docket_number: f, '$limit': 50 }).catch(() => []);
+      if (rows.length) return rows;
     }
+    return [];
+  }
+
+  async function fetchHistoryForDocket(d) {
+    const m = String(d).toUpperCase().match(/^([A-Z]+)-?0*(\d+)$/);
+    const formats = m ? [m[1] + m[2].padStart(6,'0'), m[1] + m[2]] : [d];
+    for (const f of formats) {
+      const rows = await apiFetch(INSHIST_URL, { docket_number: f, '$limit': 200, '$order': 'effective_date DESC' }).catch(() => []);
+      if (rows.length) return rows;
+    }
+    return [];
+  }
+
+  async function runLookup() {
+    const dot = document.getElementById('dotInput').value.trim().replace(/\D/g, '');
+    const btn = document.getElementById('dotBtn');
+    if (!dot) { setResults('<div class="status error">Please enter a valid DOT number.</div>'); return; }
 
     btn.disabled = true;
-    setResults('<div class="status"><span class="spinner"></span>Looking up DOT ' + dot + '…</div>');
+    hideProgress();
+    setResults(`<div class="status"><span class="spinner"></span>Looking up DOT ${dot}…</div>`);
 
     try {
-      // Step 1: census lookup
       const companies = await apiFetch(CENSUS_URL, { dot_number: dot, '$limit': 5 });
-
       if (!companies.length) {
-        setResults(`<div class="status error">No carrier found for DOT number <strong>${dot}</strong>. Verify the number and try again.</div>`);
+        setResults(`<div class="status error">No carrier found for DOT <strong>${dot}</strong>.</div>`);
         return;
       }
 
       const company = companies[0];
       const dockets = buildDockets(company);
 
-      let activeRecords = [];
-      let historyRecords = [];
+      let activeRecords = [], historyRecords = [];
 
       if (dockets.length) {
-        // Try padded format first (MC020645), fall back to unpadded (MC20645) if no results
-        const fetchInsurance = async (d) => {
-          const m = String(d).toUpperCase().match(/^([A-Z]+)-?0*(\d+)$/);
-          const formats = m ? [m[1] + m[2].padStart(6,'0'), m[1] + m[2]] : [d];
-          for (const fmt of formats) {
-            const rows = await apiFetch(INSUR_URL, { prefix_docket_number: fmt, '$limit': 50 }).catch(() => []);
-            if (rows.length) return rows;
-          }
-          return [];
-        };
-        const fetchHistory = async (d) => {
-          const m = String(d).toUpperCase().match(/^([A-Z]+)-?0*(\d+)$/);
-          const formats = m ? [m[1] + m[2].padStart(6,'0'), m[1] + m[2]] : [d];
-          for (const fmt of formats) {
-            const rows = await apiFetch(INSHIST_URL, { docket_number: fmt, '$limit': 200, '$order': 'effective_date DESC' }).catch(() => []);
-            if (rows.length) return rows;
-          }
-          return [];
-        };
-
-        const activePromises  = dockets.map(d => fetchInsurance(d));
-        const historyPromises = dockets.map(d => fetchHistory(d));
-
         const [activeResults, historyResults] = await Promise.all([
-          Promise.all(activePromises),
-          Promise.all(historyPromises),
+          Promise.all(dockets.map(fetchInsuranceForDocket)),
+          Promise.all(dockets.map(fetchHistoryForDocket)),
         ]);
 
         activeRecords  = activeResults.flat();
         historyRecords = historyResults.flat();
 
-        // Deduplicate active records by policy_no
-        const dedupActive = (arr) => {
-          const seen = new Set();
-          return arr.filter(r => {
-            if (seen.has(r.policy_no)) return false;
-            seen.add(r.policy_no);
-            return true;
-          });
-        };
-        activeRecords = dedupActive(activeRecords);
+        const seen = new Set();
+        activeRecords = activeRecords.filter(r => { if (seen.has(r.policy_no)) return false; seen.add(r.policy_no); return true; });
 
-        // Deduplicate history by (policy_no + effective_date), preferring TERM/REPL over TERM/CANCL
         const histMap = new Map();
         historyRecords.forEach(r => {
           const key = `${r.policy_no}|${r.effective_date}`;
-          const existing = histMap.get(key);
-          if (!existing) {
-            histMap.set(key, r);
-          } else if (r.cancl_method === 'TERM/REPL' && existing.cancl_method !== 'TERM/REPL') {
-            histMap.set(key, r);
-          }
+          const ex  = histMap.get(key);
+          if (!ex || (r.cancl_method === 'TERM/REPL' && ex.cancl_method !== 'TERM/REPL')) histMap.set(key, r);
         });
         historyRecords = Array.from(histMap.values());
 
-        // Drop any history record that duplicates an active policy number
         const activePolicies = new Set(activeRecords.map(r => r.policy_no));
         historyRecords = historyRecords.filter(r => !activePolicies.has(r.policy_no));
       }
@@ -543,14 +474,167 @@
     }
   }
 
+  // ── Name search ───────────────────────────────────────────────────────────────
+
+  async function runNameSearch() {
+    const query = document.getElementById('nameInput').value.trim();
+    const btn   = document.getElementById('nameBtn');
+    if (!query) return;
+
+    btn.disabled = true;
+    setProgress(5, `Searching FMCSA carrier registry for "${esc(query)}"…`);
+    setResults('');
+
+    try {
+      const safe = query.replace(/'/g, "''").toUpperCase();
+
+      // Step 1: find all carriers matching the name
+      const carriers = await apiFetch(CENSUS_URL, {
+        '$where':  `upper(legal_name) like '%${safe}%' OR upper(dba_name) like '%${safe}%'`,
+        '$select': 'dot_number,legal_name,dba_name,phy_state,power_units,status_code,classdef,' +
+                   'docket1prefix,docket1,docket2prefix,docket2,docket3prefix,docket3',
+        '$limit':  200,
+        '$order':  'power_units DESC',
+      });
+
+      if (!carriers.length) {
+        hideProgress();
+        setResults(`<div class="status error">No carriers found matching "<strong>${esc(query)}</strong>". Try a shorter or partial name.</div>`);
+        return;
+      }
+
+      // Step 2: collect all docket numbers and map them back to DOT
+      const docketToDot = {};
+      const dotToDockets = {};
+      carriers.forEach(c => {
+        const dockets = buildDockets(c);
+        dotToDockets[c.dot_number] = dockets;
+        dockets.forEach(d => { docketToDot[d] = c.dot_number; });
+      });
+
+      const allDockets = Object.keys(docketToDot);
+      setProgress(30, `Found ${carriers.length} carriers — checking insurance for ${allDockets.length} docket(s)…`);
+
+      // Step 3: batch-fetch insurance (chunks of 100 dockets per query)
+      const insMap = {}; // dot_number → [active insurance rows]
+      const CHUNK  = 100;
+      const chunks = [];
+      for (let i = 0; i < allDockets.length; i += CHUNK) chunks.push(allDockets.slice(i, i + CHUNK));
+
+      let done = 0;
+      await Promise.all(chunks.map(async chunk => {
+        const inList = chunk.map(d => `'${d}'`).join(',');
+        const rows   = await apiFetch(INSUR_URL, {
+          '$where':  `prefix_docket_number IN (${inList})`,
+          '$select': 'prefix_docket_number,ins_type_code,name_company,policy_no,effective_date,underl_lim_amount',
+          '$limit':  2000,
+        }).catch(() => []);
+
+        rows.forEach(r => {
+          const dot = docketToDot[r.prefix_docket_number];
+          if (dot) {
+            if (!insMap[dot]) insMap[dot] = [];
+            insMap[dot].push(r);
+          }
+        });
+        done++;
+        setProgress(30 + Math.round((done / chunks.length) * 65),
+          `Checking insurance… (${Math.round(done/chunks.length*100)}%)`);
+      }));
+
+      hideProgress();
+      setResults(renderNameResults(carriers, dotToDockets, insMap, query));
+
+    } catch (err) {
+      hideProgress();
+      setResults(`<div class="status error">Error: ${err.message}</div>`);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  function renderNameResults(carriers, dotToDockets, insMap, query) {
+    const withIns    = carriers.filter(c => (insMap[c.dot_number] || []).length > 0);
+    const noDocket   = carriers.filter(c => (dotToDockets[c.dot_number] || []).length === 0);
+    const noIns      = carriers.filter(c => (dotToDockets[c.dot_number] || []).length > 0 && !(insMap[c.dot_number] || []).length);
+
+    const rows = carriers.map(c => {
+      const dockets   = dotToDockets[c.dot_number] || [];
+      const ins       = insMap[c.dot_number] || [];
+      const hasIns    = ins.length > 0;
+      const primary   = ins.find(r => r.ins_type_code === '1') || ins[0];
+      const insurer   = primary?.name_company || '';
+      const covLimit  = ins.reduce((mx, r) => Math.max(mx, parseFloat(r.underl_lim_amount) || 0), 0);
+
+      let insCell;
+      if (hasIns) {
+        insCell = `<span class="ins-yes">✓ Active</span>`;
+      } else if (!dockets.length) {
+        insCell = `<span class="ins-na">No MC#</span>`;
+      } else {
+        insCell = `<span class="ins-no">None Found</span>`;
+      }
+
+      return `
+        <tr>
+          <td>
+            <button class="name-link" onclick="switchToDOT('${c.dot_number}')">${esc(c.legal_name || c.dba_name || '—')}</button>
+            ${c.dba_name && c.dba_name !== c.legal_name ? `<div style="font-size:0.73rem;color:#9ca3af">DBA: ${esc(c.dba_name)}</div>` : ''}
+          </td>
+          <td style="font-family:ui-monospace,monospace;font-size:0.82rem;color:#374151">${c.dot_number}</td>
+          <td>${c.phy_state || '—'}</td>
+          <td style="text-align:right">${c.power_units ? Number(c.power_units).toLocaleString() : '—'}</td>
+          <td>${statusBadge(c.status_code)}</td>
+          <td style="font-size:0.75rem;color:#6b7280;white-space:nowrap">${dockets.join('<br>') || '—'}</td>
+          <td>${insCell}</td>
+          <td style="font-size:0.82rem">${insurer ? esc(insurer) : '<span style="color:#d1d5db">—</span>'}</td>
+          <td style="font-size:0.82rem">${covLimit > 0 ? '$' + (covLimit * 1000).toLocaleString() : '<span style="color:#d1d5db">—</span>'}</td>
+        </tr>`;
+    }).join('');
+
+    return `
+      <div class="card">
+        <div class="card-title">Company Name Search — "${esc(query)}"</div>
+        <div class="ns-summary">
+          Found <strong>${carriers.length}</strong> carrier${carriers.length !== 1 ? 's' : ''} —
+          <span class="has-ins">${withIns.length} with active FMCSA insurance</span>,
+          <span class="no-ins-c">${noIns.length} with MC# but no filing found</span>,
+          ${noDocket.length} private/no MC#.
+          <br><span style="font-size:0.78rem;color:#9ca3af">Click a carrier name to run the full DOT lookup.</span>
+        </div>
+        <div class="ins-table-wrap">
+          <table>
+            <thead><tr>
+              <th>Carrier Name</th>
+              <th>DOT</th>
+              <th>State</th>
+              <th style="text-align:right">Fleet</th>
+              <th>Status</th>
+              <th>Docket(s)</th>
+              <th>Insurance</th>
+              <th>Insurer</th>
+              <th>Coverage Limit</th>
+            </tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </div>`;
+  }
+
+  function switchToDOT(dot) {
+    setMode('dot');
+    document.getElementById('dotInput').value = dot;
+    runLookup();
+  }
+
+  // ── Event listeners ───────────────────────────────────────────────────────────
+
   function setResults(html) {
     document.getElementById('results').innerHTML = html;
   }
 
-  // Allow Enter key to trigger search
-  document.getElementById('dotInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') runLookup();
-  });
+  document.getElementById('dotInput').addEventListener('keydown',  e => { if (e.key === 'Enter') runLookup(); });
+  document.getElementById('nameInput').addEventListener('keydown', e => { if (e.key === 'Enter') runNameSearch(); });
 </script>
 </body>
 </html>
