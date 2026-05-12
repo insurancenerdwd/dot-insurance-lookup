@@ -370,8 +370,22 @@
     };
   }
 
-  function renderInsurance(dockets, active, history) {
+  function renderInsurance(dockets, active, history, company) {
     const docketDisplay = dockets.join(', ');
+
+    if (!dockets.length) {
+      const classdef = (company?.classdef || '').toUpperCase();
+      const isPrivate = classdef.includes('PRIVATE');
+      const msg = isPrivate
+        ? `Private carrier — no MC/FF docket on file. FMCSA insurance filings are only required for for-hire carriers. ${company.legal_name || 'This carrier'} operates as a <strong>${company.classdef}</strong> carrier and is not required to file insurance with FMCSA.`
+        : 'No MC/FF docket on file. Insurance filings are only available for carriers registered with FMCSA operating authority (MC or FF number).';
+      return `
+        <div class="card">
+          <div class="card-title">Insurance Policies</div>
+          <div class="docket-label">Docket(s): <strong>—</strong></div>
+          <div class="no-ins" style="text-align:left;color:#6b7280;line-height:1.6">${msg}</div>
+        </div>`;
+    }
 
     const normalized = [
       ...active.map(normalizeActive),
@@ -520,7 +534,7 @@
         historyRecords = historyRecords.filter(r => !activePolicies.has(r.policy_no));
       }
 
-      setResults(renderCompany(company) + renderInsurance(dockets, activeRecords, historyRecords));
+      setResults(renderCompany(company) + renderInsurance(dockets, activeRecords, historyRecords, company));
 
     } catch (err) {
       setResults(`<div class="status error">Error: ${err.message}</div>`);
